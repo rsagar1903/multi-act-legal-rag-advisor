@@ -135,7 +135,7 @@ def _collection_names_for_acts(client, acts: Iterable[str]) -> List[str]:
     requested = {str(act).lower() for act in acts if str(act).lower() in LEGAL_ACTS}
     names = []
     for collection in client.list_collections():
-        name = collection.name
+        name = getattr(collection, "name", collection)
         lowered = name.lower()
         if name == USER_UPLOAD_COLLECTION:
             continue

@@ -10,7 +10,7 @@ cachetools==5.5.2
 certifi==2025.7.14
 cffi==1.17.1
 charset-normalizer==3.4.2
-chromadb==1.0.15
+chromadb==1.0.20
 click==8.2.1
 colorama==0.4.6
 coloredlogs==15.0.1

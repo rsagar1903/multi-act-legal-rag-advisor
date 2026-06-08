@@ -77,8 +77,12 @@ def extract_section_numbers(text: str) -> set[str]:
     return set(matches)
 
 
+def _collection_name(collection) -> str:
+    return getattr(collection, "name", collection)
+
+
 def _collection_names(client, include_uploads: bool = True) -> List[str]:
-    names = [collection.name for collection in client.list_collections()]
+    names = [_collection_name(collection) for collection in client.list_collections()]
     if not include_uploads:
         names = [name for name in names if name != USER_UPLOAD_COLLECTION]
     return names
@@ -699,7 +703,7 @@ def _collection_names_for_acts(client, acts: Iterable[str]) -> List[str]:
     wanted = {str(act).lower() for act in acts if str(act).lower() in {"bns", "ipc", "crpc", "cpc", "bsa"}}
     names = []
     for collection in client.list_collections():
-        collection_name = collection.name
+        collection_name = _collection_name(collection)
         lowered = collection_name.lower()
         if collection_name == USER_UPLOAD_COLLECTION:
             continue

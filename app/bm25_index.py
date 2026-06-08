@@ -36,10 +36,11 @@ def _build_all_indexes_uncached(db_path: str) -> Dict[str, Dict]:
     )
     indexes = {}
     for collection in client.list_collections():
+        collection_name = getattr(collection, "name", collection)
         try:
-            indexes[collection.name] = _build_index(client, collection.name)
+            indexes[collection_name] = _build_index(client, collection_name)
         except Exception as exc:
-            print(f"BM25 index build failed for {collection.name}: {str(exc)}")
+            print(f"BM25 index build failed for {collection_name}: {str(exc)}")
     return indexes
 
 
